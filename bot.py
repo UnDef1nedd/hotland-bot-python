@@ -53,14 +53,13 @@ async def __help (ctx):
     emb = discord.Embed( title = 'ДОСТУПНЫЕ КОМАНДЫ:', description = 'ВНИМАНИЕ! Бот ещё в разработке!', colour = discord.Color.red() )
     # title - Жирный крупный текст (Заголовок) | description - Текст под заголовком | colour - Цвет полоски
     
-    emb.set_author(name = ctx.author.name, icon_url = ctx.author.avatar_url)
+    emb.set_author(name = ctx.author.name)
     # Отображает: ctx.author.name - Имя отправителя, ctx.author.avatar_url - Аватар отправителя
     emb.add_field( name = 'Информация', value = f'`{prefix}хелп` `{prefix}инфо` `{prefix}сервер` `{prefix}профиль` `{prefix}авторы` ', inline=False)
     emb.add_field( name = 'Модерирование', value = f'`{prefix}мут` `{prefix}размут` `{prefix}бан` `{prefix}кик` `{prefix}очистить` ', inline=False)
     # Отображаемый блок текста. name - Жирный крупный текст | value - обычный текст под "name" | inline = True - Блоки текста будут в одну строку (https://prnt.sc/uogw2x) / inline = False - Блоки текста будут один под другим (https://prnt.sc/uogx3t)
-    emb.set_thumbnail(url = client.user.avatar_url)
     # emb.set_thumbnail - Добавляет картинку около текста (Например: emb.set_thumbnail(url = "https://icons.iconarchive.com/icons/elegantthemes/beautiful-flat-one-color/128/unlocked-icon.png") (NOAD) добавит картинку замка (https://prnt.sc/uogztb)) | client.user.avatar_url - Отображает аватарку бота
-    emb.set_footer( icon_url = ctx.guild.owner.avatar_url, text = f'{ctx.guild.owner.name} © Copyright 2020 | Все права защищены' )
+    emb.set_footer( text = f'{ctx.guild.owner.name} © Copyright 2020 | Все права защищены' )
     # emb.set_thumbnail - Добавляет картинку под текстом | ctx.guild.owner.avatar_url - Аватарка создателя сервера | ctx.guild.owner.name - Имя создателя сервера
     
     await ctx.send ( embed = emb)
@@ -83,8 +82,7 @@ async def __kick(ctx, member: discord.Member, *, reason = None): # Асинхр�
     await member.kick( reason = reason ) # Кикнуть пользователя по причине (Преобразует причину бота в причину дискорда)
     emb = discord.Embed( title = 'kick', description = f'Пользователь {member}  был кикнут по причине { reason } ', colour = discord.Color.red() )
     emb.set_author( name = client.user.name )
-    emb.set_footer( text = ctx.author.name, icon_url = ctx.author.avatar_url )
-    emb.set_thumbnail(url = client.user.avatar_url)
+    emb.set_footer( text = ctx.author.name )
 
     await ctx.send( embed = emb )	
 
@@ -98,7 +96,6 @@ async def kick_error(ctx, goodbye):
 		emb.set_author(name = ctx.author.name, icon_url = ctx.author.avatar_url)
 		emb.add_field( name = 'Использование', value = ">кик <@⁣Участник | ID>", inline=False)
 		emb.add_field( name = 'Пример', value = "`>кик @⁣Участник`\n┗ Кикнет указаного участника.", inline=False)
-		emb.set_thumbnail(url = client.user.avatar_url)
 		emb.set_footer( icon_url = ctx.guild.owner.avatar_url, text = f"{settings['CREATOR NAME']} © Copyright 2020 | Все права защищены"   )
 		await ctx.send ( embed = emb)
 		print(f"[Logs:error] Необходимо указать участника | {prefix}kick")
@@ -107,7 +104,6 @@ async def kick_error(ctx, goodbye):
 		emb = discord.Embed( title = f'**Команда "{prefix}кик"**', description = f'Изгоняет указаного участника с сервера с возможностью возвращения ', colour = discord.Color.red() )
 		emb.set_author(name = ctx.author.name, icon_url = ctx.author.avatar_url)
 		emb.add_field( name = 'ОШИБКА!', value = "У вас недостаточно прав!", inline=False)
-		emb.set_thumbnail(url = client.user.avatar_url)
 		emb.set_footer( icon_url = ctx.guild.owner.avatar_url, text = f"{settings['CREATOR NAME']} © Copyright 2020 | Все права защищены"   )
 		await ctx.send ( embed = emb)
 		print(f"[Logs:Error] [Ошибка доступа] Пользователь [{ctx.author}] попытался кикнуть | {prefix}kick")
